@@ -9,12 +9,12 @@
 <body>
 
    <form method="post">
-    //l'utente inserisce una parola
+    <!--l'utente inserisce una parola-->
     Inserisci una parola: <input type="text" name="parola">
 
     <br>
     <br>
-     //creo il bottone
+     <!--creo il bottone-->
     <input type="submit" value="controlla">
 
 
@@ -31,27 +31,33 @@
       if (isset($_POST["parola"])){
 
       //prende il testo inserito dall'utente
-      $testo = $_POST["parola"];git 
+      $testo = $_POST["parola"];
 
-      //divide la frase in parole in base asllo spazio
+      //divide la frase in parole in base allo spazio
       $parole = explode(" ",$testo);
 
-    //creo un array per inserire le parole non censurate
+      //creo un array per inserire le parole non censurate
       $lista = array();
 
-      for($i=0;$i<6;$i++){
+      for($i=0; $i < count($parole); $i++){
 
-       if (in_array($parole[$i], $paroleCensurate)) {
 
-            // Se è vietata, metto ***
-            $lista[] = "***";
-
-        } else {
-
-            // Se non è vietata, lascio la parola uguale
-            $lista[] = $parole[$i];
+        //controlla se fra le parole esiste una che deve essere censurata
+        if(in_array($parole[$i], $paroleCensurate)){
+          $lista[$i]="****";
+        }else{
+          $lista[$i]=$parole[$i];
         }
+
+       
+
+
       }
+
+     // riunisce le parole dell?'arrray lista mettendo uno spazio tra di loro
+        $testoCensurato = implode(" ",$lista);
+
+        echo $testoCensurato;
 
 
 
